@@ -6,8 +6,8 @@ public class WhateverPlayer implements Player {
         Random random = new Random();
         boolean coordinateIsEmpty = false;
         while(coordinateIsEmpty == false) {
-        int randomRow = random.nextInt(Board.SIZE);
-        int randomCol = random.nextInt(Board.SIZE);
+        int randomRow = random.nextInt(Board.Size);
+        int randomCol = random.nextInt(Board.Size);
         coordinateIsEmpty = board.putMark(mark, randomRow, randomCol);
         }
     }

@@ -3,22 +3,26 @@
 
 public class Board {
 
-    public static final int SIZE = 3;
-    public static final int WIN_STREAK = 3;
+    public static int Size = 5;
+    public static int WinStreak = 3;
 
     public static GameStatus boardStatus = GameStatus.IN_PROGRESS;
     private Mark[][] board;
     private int filled_cells;
 
     public Board(){
-        board = new Mark[SIZE][SIZE];
+        board = new Mark[Size][Size];
         filled_cells = 0;
-        for(int i=0; i<SIZE;i++) {
-            for (int j=0; j<SIZE;j++) {
+        for(int i = 0; i< Size; i++) {
+            for (int j = 0; j< Size; j++) {
                 board[i][j] = Mark.BLANK;
             }
         }
 
+    }
+
+    public int getSize() {
+        return Size;
     }
 
     Mark[][] getBoard(){
@@ -26,7 +30,7 @@ public class Board {
     }
 
     public boolean putMark(Mark mark, int row, int col){
-        if (row<0 || row>=SIZE || col<0 || col>=SIZE || board[row][col] != Mark.BLANK) {
+        if (row<0 || row>= Size || col<0 || col>= Size || board[row][col] != Mark.BLANK) {
             return false;
         }
         board[row][col] = mark;
@@ -39,19 +43,15 @@ public class Board {
         return this.board[row][col];
     }
 
-    public int getSize() {
-        return SIZE;
-    }
-
     private GameStatus checkGameStatus(int row, int col, Mark mark) {
-        if(horizontalStreak(row, col, mark) >= WIN_STREAK || // Check horizontal streak
-                verticalStreak(row, col, mark) >= WIN_STREAK || // Check vertical streak
-                leftRightDiagonalStreak(row, col, mark) >= WIN_STREAK || // Check left_right diagonal streak
-                rightLeftDiagonalStreak(row, col, mark) >= WIN_STREAK // Check right_left diagonal streak
+        if(horizontalStreak(row, col, mark) >= WinStreak || // Check horizontal streak
+                verticalStreak(row, col, mark) >= WinStreak || // Check vertical streak
+                leftRightDiagonalStreak(row, col, mark) >= WinStreak || // Check left_right diagonal streak
+                rightLeftDiagonalStreak(row, col, mark) >= WinStreak // Check right_left diagonal streak
         ) {
             return (mark == Mark.O ? GameStatus.O_WIN : GameStatus.X_WIN);
         }
-        return (filled_cells == SIZE*SIZE ? GameStatus.DRAW : GameStatus.IN_PROGRESS);
+        return (filled_cells == Size * Size ? GameStatus.DRAW : GameStatus.IN_PROGRESS);
     }
 
     private int rightLeftDiagonalStreak(int row, int col, Mark mark) {
@@ -76,7 +76,7 @@ public class Board {
 
     private int countMarkInDirection(int row, int col, int rowDelta, int colDelta, Mark mark) {
         int count = 0;
-        while(row<SIZE && row>=0 && col<SIZE && col>=0 && board[row][col] == mark) {
+        while(row< Size && row>=0 && col< Size && col>=0 && board[row][col] == mark) {
             count++;
             row += rowDelta;
             col += colDelta;

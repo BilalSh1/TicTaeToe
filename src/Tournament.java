@@ -31,11 +31,13 @@ public class Tournament {
     }
 
     public static void main(String[] args) {
-        if(!(2 <= Integer.parseInt(args[2]) &&  Integer.parseInt(args[2]) < Integer.parseInt(args[1]) &&
+        if(!(2 <= Integer.parseInt(args[2]) &&  Integer.parseInt(args[2]) <= Integer.parseInt(args[1]) &&
                 Integer.parseInt(args[1]) <= 9)){
             System.out.println("Enter valid board size and win streak! \nThey must be in range of [2, 9]");
             return;
         }
+        Board.Size = Integer.parseInt(args[1]);
+        Board.WinStreak = Integer.parseInt(args[2]);
         RendererFactory rendFactory = new RendererFactory();
         PlayerFactory playerFactory = new PlayerFactory();
         Renderer renderer = rendFactory.buildRenderer(args[3].toLowerCase());

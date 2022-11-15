@@ -19,7 +19,7 @@ public class Game {
     }
 
     public int getWinSteak() {
-        return Board.WIN_STREAK;
+        return Board.WinStreak;
     }
 
     public Mark getWinner() {
