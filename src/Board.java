@@ -3,7 +3,7 @@
 
 public class Board {
 
-    public static final int SIZE = 4;
+    public static final int SIZE = 3;
     public static final int WIN_STREAK = 3;
 
     public static GameStatus boardStatus = GameStatus.IN_PROGRESS;

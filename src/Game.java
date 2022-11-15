@@ -4,9 +4,9 @@ enum GameStatus {
 
 
 public class Game {
-    Player playerX;
-    Player playerO;
-    Renderer renderer;
+    private Player playerX;
+    private Player playerO;
+    private Renderer renderer;
 
     public Game(Player playerX, Player playerO, Renderer renderer) {
         this.playerX = playerX;
@@ -37,14 +37,12 @@ public class Game {
             playerX.playTurn(board, Mark.X);
             renderer.renderBoard(board);
             if(Board.boardStatus != GameStatus.IN_PROGRESS) {
-                System.out.println(Board.boardStatus);
                 return getWinner();
 
             }
             playerO.playTurn(board, Mark.O);
             renderer.renderBoard(board);
             if(Board.boardStatus != GameStatus.IN_PROGRESS) {
-                System.out.println(Board.boardStatus);
                 return getWinner();
 
             }
