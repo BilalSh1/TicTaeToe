@@ -14,6 +14,14 @@ public class Game {
         this.renderer = renderer;
     }
 
+    public Game(Player playerX, Player playerO, int size, int winSteak, Renderer renderer){
+
+    }
+
+    public int getWinSteak() {
+        return Board.WIN_STREAK;
+    }
+
     public Mark getWinner() {
         if (Board.boardStatus == GameStatus.DRAW) {
             return Mark.BLANK;
@@ -24,18 +32,17 @@ public class Game {
 
     public Mark run() {
         Board board = new Board();
-        Renderer rend = new Renderer();
-        rend.renderBoard(board);
+        renderer.renderBoard(board);
         while(true) {
             playerX.playTurn(board, Mark.X);
-            rend.renderBoard(board);
+            renderer.renderBoard(board);
             if(Board.boardStatus != GameStatus.IN_PROGRESS) {
                 System.out.println(Board.boardStatus);
                 return getWinner();
 
             }
             playerO.playTurn(board, Mark.O);
-            rend.renderBoard(board);
+            renderer.renderBoard(board);
             if(Board.boardStatus != GameStatus.IN_PROGRESS) {
                 System.out.println(Board.boardStatus);
                 return getWinner();
@@ -43,13 +50,5 @@ public class Game {
             }
         }
     }
-
-    public static void main(String[] args) {
-        Renderer renderer = new Renderer();
-        Player player1 = new Player();
-        Player player2 = new Player();
-        Game match = new Game(player1, player2, renderer);
-        match.run();
-        }
-    }
+}
 

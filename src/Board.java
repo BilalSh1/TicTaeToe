@@ -21,6 +21,10 @@ public class Board {
 
     }
 
+    Mark[][] getBoard(){
+        return this.board;
+    }
+
     public boolean putMark(Mark mark, int row, int col){
         if (row<0 || row>=SIZE || col<0 || col>=SIZE || board[row][col] != Mark.BLANK) {
             return false;
@@ -33,6 +37,10 @@ public class Board {
 
     public Mark getMark(int row, int col){
         return this.board[row][col];
+    }
+
+    public int getSize() {
+        return SIZE;
     }
 
     private GameStatus checkGameStatus(int row, int col, Mark mark) {
