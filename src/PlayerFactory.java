@@ -4,7 +4,7 @@ public class PlayerFactory {
     }
 
     public Player buildPlayer(String playerType) {
-        switch(playerType){
+        switch(playerType.toLowerCase()){
             case "human":
                 return new HumanPlayer();
             case "whatever":

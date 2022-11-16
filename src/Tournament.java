@@ -13,7 +13,7 @@ public class Tournament {
     public int[] playTournament(int size, int winStreak, String[] playerNames){
         int[] results = new int[3];
         for (int round=0;round<rounds;round++) {
-            Game match = new Game(players[currPlayerIndex], players[(currPlayerIndex+1)%2], renderer);
+            Game match = new Game(players[currPlayerIndex], players[(currPlayerIndex+1)%2], size, winStreak, renderer);
             Mark res = match.run();
             switch (res){
                 case X:
@@ -31,34 +31,34 @@ public class Tournament {
     }
 
     public static void main(String[] args) {
-        if(!(2 <= Integer.parseInt(args[2]) &&  Integer.parseInt(args[2]) <= Integer.parseInt(args[1]) &&
-                Integer.parseInt(args[1]) <= 9)){
+        int rounds = Integer.parseInt(args[0]), boardSize = Integer.parseInt(args[1]),
+                winStreak = Integer.parseInt(args[2]);
+        String consoleType = args[3], firstPlayerName = args[4], secPlayerName = args[5];
+
+        if(!(2 <= winStreak &&  winStreak <= boardSize && boardSize <= 9)){
             System.out.println("Enter valid board size and win streak! \nThey must be in range of [2, 9]");
             return;
         }
-        Board.Size = Integer.parseInt(args[1]);
-        Board.WinStreak = Integer.parseInt(args[2]);
         RendererFactory rendFactory = new RendererFactory();
         PlayerFactory playerFactory = new PlayerFactory();
-        Renderer renderer = rendFactory.buildRenderer(args[3].toLowerCase(), Integer.parseInt(args[1]));
+        Renderer renderer = rendFactory.buildRenderer(consoleType, boardSize);
         if (renderer == null){
             System.err.println("Choose a renderer and try again \nThe renderer: [console, none]");
             return;
         }
-        Player player1 = playerFactory.buildPlayer(args[4].toLowerCase());
-        Player player2 = playerFactory.buildPlayer(args[5].toLowerCase());
+        Player player1 = playerFactory.buildPlayer(firstPlayerName);
+        Player player2 = playerFactory.buildPlayer(secPlayerName);
         if (player1 == null || player2 == null){
             System.err.println("Choose a player and try again \nThe player: [human, clever, whatever, genius]");
             return;
         }
         Player[] players = {player1, player2};
-        Tournament tournament = new Tournament(Integer.parseInt(args[0]), renderer, players);
-        int[] results = tournament.playTournament(Integer.parseInt(args[1]),
-                Integer.parseInt(args[2]), new String[] {"Bilal", "HI"});
+        Tournament tournament = new Tournament(rounds, renderer, players);
+        int[] results = tournament.playTournament(boardSize, winStreak, new String[] {firstPlayerName, secPlayerName});
         System.out.println(String.format("######### Results #########\n" +
                         "Player 1, %s won: %d rounds\n" +
                         "Player 2, %s won: %d rounds\n" +
                         "Ties:%d\n",
-                args[4], results[0], args[5], results[1], results[2]));
+                firstPlayerName, results[0], secPlayerName, results[1], results[2]));
     }
 }
