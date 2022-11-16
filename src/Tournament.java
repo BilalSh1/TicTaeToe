@@ -40,7 +40,7 @@ public class Tournament {
         Board.WinStreak = Integer.parseInt(args[2]);
         RendererFactory rendFactory = new RendererFactory();
         PlayerFactory playerFactory = new PlayerFactory();
-        Renderer renderer = rendFactory.buildRenderer(args[3].toLowerCase());
+        Renderer renderer = rendFactory.buildRenderer(args[3].toLowerCase(), Integer.parseInt(args[1]));
         if (renderer == null){
             System.err.println("Choose a renderer and try again \nThe renderer: [console, none]");
             return;

@@ -4,11 +4,11 @@ public class RendererFactory {
 
     }
 
-    public Renderer buildRenderer(String rendererType) {
-        if (rendererType.equals("console")) {
-            return new ConsoleRenderer(Board.Size);
+    public Renderer buildRenderer(String type, int size) {
+        if (type.equals("console")) {
+            return new ConsoleRenderer(size);
         }
-        if (rendererType.equals("none")) {
+        if (type.equals("none")) {
             return new voidRenderer();
         }
         return null;
