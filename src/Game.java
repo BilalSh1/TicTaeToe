@@ -1,8 +1,6 @@
 enum GameStatus {
     DRAW, X_WIN, O_WIN, IN_PROGRESS;
 }
-
-
 public class Game {
     private Player playerX;
     private Player playerO;
@@ -22,38 +20,38 @@ public class Game {
         this.renderer = renderer;
         this.gameWinStreak = winSteak;
         this.boardSize = size;
-
     }
 
     public int getWinSteak() {
         return gameWinStreak;
     }
 
-    public Mark getWinner() {
-        if (Board.boardStatus == GameStatus.DRAW) {
+    public Mark getWinner(GameStatus gameStatus) {
+        if (gameStatus == GameStatus.DRAW) {
             return Mark.BLANK;
         } else {
-            return (Board.boardStatus == GameStatus.X_WIN ? Mark.X : Mark.O);
+            return (gameStatus == GameStatus.X_WIN ? Mark.X : Mark.O);
         }
     }
 
     public Mark run() {
         Board board = new Board(boardSize);
+        board.winStreak = getWinSteak();
         renderer.renderBoard(board);
         while(true) {
             playerX.playTurn(board, Mark.X);
             renderer.renderBoard(board);
-            if(Board.boardStatus != GameStatus.IN_PROGRESS) {
-                return getWinner();
-
+            if(board.gameStatus != GameStatus.IN_PROGRESS) {
+                return getWinner(board.gameStatus);
             }
             playerO.playTurn(board, Mark.O);
             renderer.renderBoard(board);
-            if(Board.boardStatus != GameStatus.IN_PROGRESS) {
-                return getWinner();
+            if(board.gameStatus != GameStatus.IN_PROGRESS) {
+                return getWinner(board.gameStatus);
 
             }
         }
     }
+
 }
 

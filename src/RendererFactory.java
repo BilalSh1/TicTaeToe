@@ -9,7 +9,7 @@ public class RendererFactory {
             return new ConsoleRenderer(size);
         }
         if (type.equals("none")) {
-            return new voidRenderer();
+            return new VoidRenderer();
         }
         return null;
     }

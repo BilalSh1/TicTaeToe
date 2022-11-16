@@ -1,12 +1,8 @@
 
-
-
 public class Board {
-
     private int size = 4;
-    private int winStreak = 3;
-
-    public static GameStatus boardStatus = GameStatus.IN_PROGRESS;
+    public int winStreak = 3;
+    public GameStatus gameStatus = GameStatus.IN_PROGRESS;
     private Mark[][] board;
     private int filled_cells;
 
@@ -36,17 +32,17 @@ public class Board {
         return size;
     }
 
-    Mark[][] getBoard(){
+    public Mark[][] getBoard() {
         return this.board;
     }
 
-    public boolean putMark(Mark mark, int row, int col){
-        if (row<0 || row>= size || col<0 || col>= size || board[row][col] != Mark.BLANK) {
+    public boolean putMark(Mark mark, int row, int col) {
+        if (row<0 || row>= size || col<0 || col>= size || board[row][col] != Mark.BLANK || filled_cells == size*size) {
             return false;
         }
         board[row][col] = mark;
         filled_cells++;
-        Board.boardStatus = checkGameStatus(row, col, mark);
+        gameStatus = checkBoardStatus(row, col, mark);
         return true;
     }
 
@@ -57,7 +53,7 @@ public class Board {
         return Mark.BLANK;
     }
 
-    private GameStatus checkGameStatus(int row, int col, Mark mark) {
+    private GameStatus checkBoardStatus(int row, int col, Mark mark) {
         if(horizontalStreak(row, col, mark) >= winStreak || // Check horizontal streak
                 verticalStreak(row, col, mark) >= winStreak || // Check vertical streak
                 leftRightDiagonalStreak(row, col, mark) >= winStreak || // Check left_right diagonal streak
